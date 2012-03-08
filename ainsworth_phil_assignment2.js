@@ -6,43 +6,20 @@ var logIt = function (input) {
 	};
 };
 
-var dragons = ["Red", "Blue", "Green", "RazorBack", "Gorgonthaller"]
-var dragonhp = [2000, 1000, 500, 250, 125]
-var wizards = ["Merlin", "Morgana", "Gandalf", "Dumbledore"]
-var wizardap = [500, 400, 200, 100]
-/*var char,
-	power;
-
-function = createWizardArrays() {
-	aName = wname
-	for (x=0; x < wizards.length - 1; x++) {
-		wname = wizards[x];
-		
-	};
-	return aName;
-}; */
 
 
 
-
-
-autoDefeat = function (wiz, drag) {
+var autoDefeat = function (wiz, drag) {
 	if (wiz >= drag) {
-		logIt("You have defeated the puny " + dragons[selectedDrag] + " dragon");
+		logIt("You are far superior than the puny " + dragons[selectedDragon] + " dragon!");
+		logIt("It lays slain after a single fatel blow!");
 	} else {
-		logIt("Prepare for battle!");
-		battle(wizardap[selectedWiz], dragonhp[selectedDrag]);
+		logIt("Prepare to battle the " + dragons[selectedDragon] + " dragon!");
+		var win = battle(wizardap[selectedWizard], dragonhp[selectedDragon]);
+		logIt(win);
 	};
+	return dragons[selectedDragon];
 };
-
-
-
-
-
-
-
-
-
 
 
 
@@ -51,13 +28,16 @@ var battle = function(wiz, drag) {
 	var strike = drag
 	logIt("Dragon hit points: " + strike);
 	logIt("Your attack ability is rated at: " + wiz);
-	while (wiz < strike) {
+	while (wiz < strike) { 
 		strike -= wiz;
 		logIt("You hit the dragon! It's hit points have been reduced to " + strike);
 	};
-	logIt("You beat the Dragon!")
+	logIt("Consider the dragon slain!")
 	return 1;
 }
+
+
+
 
 var stats = function (char, power) {
 		if (char===dragons) {
@@ -73,11 +53,50 @@ var stats = function (char, power) {
 		};
 };
 
-selectedWiz = wizards.indexOf(prompt ("Please select a wizard: " + wizards.join(", ")));		// need to convert name to array index
-selectedDrag = dragons.indexOf(prompt("Please select a dragon to fight: " + dragons.join(", ")));
 
-autoDefeat(wizardap[selectedWiz], dragonhp[selectedDrag]);
-// battle(wizardap[selectedWiz], dragonhp[selectedDrag]);
 
-stats(dragons, dragonhp);
-stats(wizards, wizardap);
+
+
+
+
+
+
+var sessionLength = function (loops) {
+	for (i=0; i < loops; i++) {
+		// -- More user input variables
+		var selectedWiz = wizards.indexOf(prompt ("Please select a wizard for this battle: " + wizards.join(", ")));
+		function wizTransfer(x) {
+			selectedWizard = x;
+			return selectedWizard;
+		};
+		var selectedDrag = dragons.indexOf(prompt("Please select a dragon to fight: " + dragons.join(", ")));
+		function dragTransfer(x) {
+			selectedDragon = x;
+			return selectedDragon;
+		};
+		wizTransfer(selectedWiz);
+		dragTransfer(selectedDrag)
+		var defeated = autoDefeat(wizardap[selectedWiz], dragonhp[selectedDrag]);
+		logIt("Congratulation! You defeated the " + defeated + " dragon!");
+	};
+};
+
+// -- Start of script --
+// -- Variable Farm --
+var dragons = ["Red", "Blue", "Green", "RazorBack", "Gorgonthaller"];
+var dragonhp = [2000, 1000, 500, 250, 125];
+var wizards = ["Merlin", "Morgana", "Gandalf", "Dumbledore", []];
+var wizardap = [500, 400, 200, 100];
+/*var char,
+	power; */
+var selectedWizard;
+var selectedDragon;
+// -- User input variables
+var numberOfBattles = prompt("How many battles would you like to fight today?");
+
+// -- Start calling functions
+sessionLength(numberOfBattles);
+
+
+// stats(dragons, dragonhp);
+// stats(wizards, wizardap);
