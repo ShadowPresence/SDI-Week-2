@@ -10,8 +10,42 @@ var dragons = ["Red", "Blue", "Green", "RazorBack", "Gorgonthaller"]
 var dragonhp = [2000, 1000, 500, 250, 125]
 var wizards = ["Merlin", "Morgana", "Gandalf", "Dumbledore"]
 var wizardap = [500, 400, 200, 100]
-var char,
+/*var char,
 	power;
+
+function = createWizardArrays() {
+	aName = wname
+	for (x=0; x < wizards.length - 1; x++) {
+		wname = wizards[x];
+		
+	};
+	return aName;
+}; */
+
+
+
+
+
+autoDefeat = function (wiz, drag) {
+	if (wiz >= drag) {
+		logIt("You have defeated the puny " + dragons[selectedDrag] + " dragon");
+	} else {
+		logIt("Prepare for battle!");
+		battle(wizardap[selectedWiz], dragonhp[selectedDrag]);
+	};
+};
+
+
+
+
+
+
+
+
+
+
+
+
 
 var battle = function(wiz, drag) {
 	var strike = drag
@@ -24,8 +58,6 @@ var battle = function(wiz, drag) {
 	logIt("You beat the Dragon!")
 	return 1;
 }
-
-
 
 var stats = function (char, power) {
 		if (char===dragons) {
@@ -40,6 +72,12 @@ var stats = function (char, power) {
 			logIt("Why is this getting chosen?");
 		};
 };
-battle(wizardap[3], dragonhp[0]);
+
+selectedWiz = wizards.indexOf(prompt ("Please select a wizard: " + wizards.join(", ")));		// need to convert name to array index
+selectedDrag = dragons.indexOf(prompt("Please select a dragon to fight: " + dragons.join(", ")));
+
+autoDefeat(wizardap[selectedWiz], dragonhp[selectedDrag]);
+// battle(wizardap[selectedWiz], dragonhp[selectedDrag]);
+
 stats(dragons, dragonhp);
 stats(wizards, wizardap);
