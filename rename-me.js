@@ -15,10 +15,13 @@ var char,
 
 var battle = function(wiz, drag) {
 	var strike = drag
-	while (wiz < drag) {
-		strike =- wiz;
+	logIt("Dragon hit points: " + strike);
+	logIt("Your attack ability is rated at: " + wiz);
+	while (wiz < strike) {
+		strike -= wiz;
 		logIt("You hit the dragon! It's hit points have been reduced to " + strike);
 	};
+	logIt("You beat the Dragon!")
 	return 1;
 }
 
@@ -37,6 +40,6 @@ var stats = function (char, power) {
 			logIt("Why is this getting chosen?");
 		};
 };
-battle(wizardap[0], dragonhp[0]);
+battle(wizardap[3], dragonhp[0]);
 stats(dragons, dragonhp);
 stats(wizards, wizardap);
