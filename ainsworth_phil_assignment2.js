@@ -77,7 +77,7 @@ var fuse = function (a, b, c) {
 var sessionLength = function (loops) {
 	for (i=0; i < loops; i++) {
 		// -- More user input variables
-		selectedWizard = wizards.indexOf(prompt ("Please select a wizard for this battle: " + wizards.join(", ")));
+		selectedWizard = wizards.indexOf(prompt ("Please select a wizard for battle #" + (i+1) + ": " + wizards.join(", ")));
 		selectedDragon = dragons.indexOf(prompt("Please select a dragon to fight: " + dragons.join(", ")));
 		var defeated = autoDefeat(wizardap[selectedWizard], dragonhp[selectedDragon]);
 		if (defeated) {
