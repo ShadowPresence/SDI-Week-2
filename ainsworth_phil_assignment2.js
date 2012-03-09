@@ -3,18 +3,18 @@ var dragons = ["Red", "Blue", "Green", "RazorBack", "Gorgonthaller"];
 var dragonhp = [2000, 1000, 500, 250, 125];
 var wizards = ["Merlin", "Morgana", "Gandalf", "Dumbledore"];
 var wizardap = [500, 400, 200, 100];
-var defeated;
-var selectedWizard;
-var selectedDragon;
 var merlinWin = [],
 	morganaWin = [],
 	gandalfWin = [],
-	dumbledoreWin = [],
+	dumbledoreWin = [];
+var selectedWizard,
+	selectedDragon,
 	win,
 	dragAmount,
 	wizAmount;
 	
-// -- Functions
+// -- Functions --
+// -- Procedure 1, LOGIT --
 var logIt = function (input) {
 	if (!input) {
 		console.log("We have nothing to log.");
@@ -23,6 +23,21 @@ var logIt = function (input) {
 	};
 };
 
+// -- Function 1 Boolean, AUTO DEFEAT --
+var autoDefeat = function (wiz, drag) {
+	if (wiz >= drag) {
+		logIt(fuse("You are far superior than the puny ", dragons[selectedDragon], " dragon!"));
+		logIt("It lays slain after a single fatal blow!");
+		win = 1;
+		return true;
+	} else {
+		logIt(wizards[selectedWizard] + ", prepare to battle the " + dragons[selectedDragon] + " dragon!");
+		return false;
+	};
+	
+};
+
+// -- Function 2 Number, BATTLE --
 var battle = function(wiz, drag) {
 	var strike = drag
 	logIt("Dragon hit points: " + strike);
@@ -35,33 +50,47 @@ var battle = function(wiz, drag) {
 	return 1;
 }
 
+// -- Function 3 Array, STATS --
 var stats = function (char, power) {
-		if (char===dragons) {
-			for (i=0; i<char.length;i++) {
-				logIt("The " + char[i] + " Dragon has " + power[i] + " hit points"); 
-			};
-		} else if (char===wizards) {
-			for (i=0; i<char.length;i++) {
-				logIt("The Wizard " + char[i] + " has " + power[i] + " attack points"); 
-			};
-		} else {
-			logIt("Why is this getting chosen?");
+	if (char===dragons) {
+		logIt("Dragons:");
+		for (i=0; i<char.length;i++) {
+			logIt("The " + char[i] + " Dragon has " + power[i] + " hit points"); 
 		};
-		return i;
+	} else if (char===wizards) {
+		logIt("Wizards:");
+		for (i=0; i<char.length;i++) {
+			logIt("The Wizard " + char[i] + " has " + power[i] + " attack points"); 
+		};
+	} else {
+		logIt("Why is this getting chosen?");
+	};
+	return char;
 };
 
+// -- Function 4 String, SUMMARY --
+var fuse = function (a, b, c) {
+	return a + b + c;
+};
+
+// -- Extra Function, SESSIONS --
 var sessionLength = function (loops) {
 	for (i=0; i < loops; i++) {
 		// -- More user input variables
 		selectedWizard = wizards.indexOf(prompt ("Please select a wizard for this battle: " + wizards.join(", ")));
 		selectedDragon = dragons.indexOf(prompt("Please select a dragon to fight: " + dragons.join(", ")));
 		var defeated = autoDefeat(wizardap[selectedWizard], dragonhp[selectedDragon]);
-		logIt("Congratulation! You defeated the " + defeated + " dragon!");
+		if (defeated) {
+			logIt(fuse("Congratulation! You defeated the ", dragons[selectedDragon], " dragon!"));	
+		} else {
+		battle(wizardap[selectedWizard], dragonhp[selectedDragon]);
+		};
 		wins(wizards[selectedWizard]);
 	};
 	return i;
 };
 
+// -- Extra Procedure, WINS --
 var wins = function (array) {
 	if (array==="Merlin") {
 		merlinWin.push(win);
@@ -74,19 +103,6 @@ var wins = function (array) {
 	} else return;
 };
 
-var autoDefeat = function (wiz, drag) {
-	if (wiz >= drag) {
-		logIt("You are far superior than the puny " + dragons[selectedDragon] + " dragon!");
-		logIt("It lays slain after a single fatal blow!");
-		win = 1;
-		return dragons[selectedDragon];
-	} else {
-		logIt(wizards[selectedWizard] + ", prepare to battle the " + dragons[selectedDragon] + " dragon!");
-		win = battle(wizardap[selectedWizard], dragonhp[selectedDragon]);
-		return dragons[selectedDragon];
-	};
-	
-};
 
 
 // -- Start of script --
@@ -103,7 +119,7 @@ logIt("HERE ARE THE STATS:");
 var dragAmount = stats(dragons, dragonhp);
 var wizAmount = stats(wizards, wizardap);
 
-logIt("There are " + dragAmount + " dragons, and " + wizAmount + " wizards to defeat them.");
+logIt("The last battle was fought by " + wizAmount[selectedWizard] + " who defeated the " + dragAmount[selectedDragon] + " dragon.");
 
 logIt("Merlin won: " + merlinWin.length);
 logIt("Morgana won: " + morganaWin.length);
