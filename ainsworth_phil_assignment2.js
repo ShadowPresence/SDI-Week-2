@@ -1,3 +1,8 @@
+// Title: Deliverable 2
+// Author: Phil Ainsworth
+// Created: 3/7/12 21:05
+// Description: Wizards & Dragons
+
 // -- Variable Farm --
 var dragons = ["Red", "Blue", "Green", "RazorBack", "Gorgonthaller"];
 var dragonhp = [2000, 1000, 500, 250, 125];
