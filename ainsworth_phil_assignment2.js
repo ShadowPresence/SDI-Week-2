@@ -1,3 +1,20 @@
+// -- Variable Farm --
+var dragons = ["Red", "Blue", "Green", "RazorBack", "Gorgonthaller"];
+var dragonhp = [2000, 1000, 500, 250, 125];
+var wizards = ["Merlin", "Morgana", "Gandalf", "Dumbledore"];
+var wizardap = [500, 400, 200, 100];
+var defeated;
+var selectedWizard;
+var selectedDragon;
+var merlinWin = [],
+	morganaWin = [],
+	gandalfWin = [],
+	dumbledoreWin = [],
+	win,
+	dragAmount,
+	wizAmount;
+	
+// -- Functions
 var logIt = function (input) {
 	if (!input) {
 		console.log("We have nothing to log.");
@@ -5,24 +22,6 @@ var logIt = function (input) {
 		console.log(input);
 	};
 };
-
-
-
-
-var autoDefeat = function (wiz, drag) {
-	if (wiz >= drag) {
-		logIt("You are far superior than the puny " + dragons[selectedDragon] + " dragon!");
-		logIt("It lays slain after a single fatel blow!");
-	} else {
-		logIt("Prepare to battle the " + dragons[selectedDragon] + " dragon!");
-		var win = battle(wizardap[selectedWizard], dragonhp[selectedDragon]);
-		logIt(win);
-	};
-	return dragons[selectedDragon];
-};
-
-
-
 
 var battle = function(wiz, drag) {
 	var strike = drag
@@ -36,9 +35,6 @@ var battle = function(wiz, drag) {
 	return 1;
 }
 
-
-
-
 var stats = function (char, power) {
 		if (char===dragons) {
 			for (i=0; i<char.length;i++) {
@@ -51,52 +47,72 @@ var stats = function (char, power) {
 		} else {
 			logIt("Why is this getting chosen?");
 		};
+		return i;
 };
-
-
-
-
-
-
-
-
 
 var sessionLength = function (loops) {
 	for (i=0; i < loops; i++) {
 		// -- More user input variables
-		var selectedWiz = wizards.indexOf(prompt ("Please select a wizard for this battle: " + wizards.join(", ")));
-		function wizTransfer(x) {
-			selectedWizard = x;
-			return selectedWizard;
-		};
-		var selectedDrag = dragons.indexOf(prompt("Please select a dragon to fight: " + dragons.join(", ")));
-		function dragTransfer(x) {
-			selectedDragon = x;
-			return selectedDragon;
-		};
-		wizTransfer(selectedWiz);
-		dragTransfer(selectedDrag)
-		var defeated = autoDefeat(wizardap[selectedWiz], dragonhp[selectedDrag]);
+		selectedWizard = wizards.indexOf(prompt ("Please select a wizard for this battle: " + wizards.join(", ")));
+		selectedDragon = dragons.indexOf(prompt("Please select a dragon to fight: " + dragons.join(", ")));
+		var defeated = autoDefeat(wizardap[selectedWizard], dragonhp[selectedDragon]);
 		logIt("Congratulation! You defeated the " + defeated + " dragon!");
+		wins(wizards[selectedWizard]);
 	};
+	return i;
 };
 
+var wins = function (array) {
+	if (array==="Merlin") {
+		merlinWin.push(win);
+	} else if (array==="Morgana") {
+		morganaWin.push(win);
+	} else if (array==="Gandalf") {
+		gandalfWin.push(win);
+	} else if (array==="Dumbledore") {
+		dumbledoreWin.push(win);
+	} else return;
+};
+
+var autoDefeat = function (wiz, drag) {
+	if (wiz >= drag) {
+		logIt("You are far superior than the puny " + dragons[selectedDragon] + " dragon!");
+		logIt("It lays slain after a single fatal blow!");
+		win = 1;
+		return dragons[selectedDragon];
+	} else {
+		logIt(wizards[selectedWizard] + ", prepare to battle the " + dragons[selectedDragon] + " dragon!");
+		win = battle(wizardap[selectedWizard], dragonhp[selectedDragon]);
+		return dragons[selectedDragon];
+	};
+	
+};
+
+
 // -- Start of script --
-// -- Variable Farm --
-var dragons = ["Red", "Blue", "Green", "RazorBack", "Gorgonthaller"];
-var dragonhp = [2000, 1000, 500, 250, 125];
-var wizards = ["Merlin", "Morgana", "Gandalf", "Dumbledore", []];
-var wizardap = [500, 400, 200, 100];
-/*var char,
-	power; */
-var selectedWizard;
-var selectedDragon;
+
+
+	
 // -- User input variables
 var numberOfBattles = prompt("How many battles would you like to fight today?");
 
 // -- Start calling functions
-sessionLength(numberOfBattles);
+var sessions = sessionLength(numberOfBattles);
+logIt(" -- The battles have completed! -- ");
+logIt("HERE ARE THE STATS:");
+var dragAmount = stats(dragons, dragonhp);
+var wizAmount = stats(wizards, wizardap);
+
+logIt("There are " + dragAmount + " dragons, and " + wizAmount + " wizards to defeat them.");
+
+logIt("Merlin won: " + merlinWin.length);
+logIt("Morgana won: " + morganaWin.length);
+logIt("Gandalf won: " + gandalfWin.length);
+logIt("Dumbledore won: " + dumbledoreWin.length);
+
+logIt("You played " + sessions + " sessions");
 
 
-// stats(dragons, dragonhp);
-// stats(wizards, wizardap);
+
+
+
